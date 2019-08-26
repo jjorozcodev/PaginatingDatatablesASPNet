@@ -3,5 +3,49 @@
     ViewBag.Title = "Listado de Empleados";
 }
 
-<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Title <i>from... /Empleado/GetList</i></h3>
+<br>
+<div class="table-responsive">
+    <table id="empTable" class="table">
+        <thead>
+            <tr>
+                <th>Document</th>
+                <th>Name</th>
+                <th>Lastname</th>            
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Document</th>
+                <th>Name</th>
+                <th>Lastname</th>            
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+    $(document).ready(function (){
+        $('#empTable').DataTable({
+            processing: true,
+            ajax: {
+                url: '/Empleado/GetList',
+                type: 'POST',
+                datatype: 'json'
+            },
+            columns: [
+                { "data": "Documento", "name": "Document"},
+                { "data": "Nombre", "name": "Name"},
+                { "data": "Apellido", "name": "Lastname"},
+            ],
+            serverSide: true,
+            order: [0, 'asc']
+        });
+    });
+    </script>
+}
 
